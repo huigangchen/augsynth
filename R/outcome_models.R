@@ -183,12 +183,14 @@ fit_prog_gsynth <- function(X, y, trt, r=0, r.end=5, force=3, CV=1, ...) {
     }
 
     df_x = data.frame(X, check.names=FALSE)
+    colnames(df_x) = seq(1, dim(X)[2])
     df_x$unit = rownames(df_x)
     df_x$trt = rep(0, nrow(df_x))
     df_x <- df_x %>% select(unit, trt, everything())
     long_df_x = gather(df_x, time, obs, -c(unit,trt))
 
     df_y = data.frame(y, check.names=FALSE)
+    colnames(df_y) = seq(1, dim(df_y)[2])+dim(X)[2]
     df_y$unit = rownames(df_y)
     df_y$trt = trt
     df_y <- df_y %>% select(unit, trt, everything())
